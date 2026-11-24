@@ -15,6 +15,12 @@ JOKE = (
 
 
 def main() -> None:
+    # Gate self-check: the bounty only judges entries of 1-200 characters.
+    # Fail loudly instead of writing an entry the gate would refuse.
+    if not 1 <= len(JOKE) <= 200:
+        raise SystemExit(f"entry is {len(JOKE)} characters, must be 1-200")
+    if "\n" in JOKE:
+        raise SystemExit("entry must be a single line")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8", newline="") as f:
         f.write(JOKE)
